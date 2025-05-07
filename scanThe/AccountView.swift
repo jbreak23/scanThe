@@ -6,12 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct AccountView: View {
     var body: some View {
-        Text("AccountView")
+        VStack {
+            if let user = Auth.auth().currentUser {
+                Text("Logged in as \(user.email ?? "")")
+                Button("Logout") {
+                    try? Auth.auth().signOut()
+                }
+            } else {
+                Text("Not logged in")
+            }
+        }
     }
 }
+
 
 #Preview {
     AccountView()
